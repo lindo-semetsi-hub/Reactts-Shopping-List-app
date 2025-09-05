@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import userSlice from './userSlice';
+
 
 export type Item = { id: number; name: string; qty: number; notes?: string; category?: string}
 export type ShoppingList = {id: number; name: string; items: Item[]; createdAt: string }
@@ -28,4 +28,4 @@ const listsSlice = createSlice({
 })
 
 export const {setLists, addList, updateList, deleteList} = listsSlice.actions
-export default userSlice.reducer
+export default listsSlice.reducer

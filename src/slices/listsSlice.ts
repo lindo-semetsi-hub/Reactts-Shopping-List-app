@@ -1,31 +1,37 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 
-export type Item = { id: number; name: string; qty: number; notes?: string; category?: string}
-export type ShoppingList = {id: number; name: string; items: Item[]; createdAt: string }
 
-interface listsState { lists: ShoppingList[]}
+const API_URL = "http://localhost:4000/lists";
 
-const initialState: listsState = { lists: []}
+export const 
+fetchLists = createAsyncThunk("lists/fetch", async () => {
+  
+    const res = await axios.get(API_URL);
+
+  return res.data;
+});
+
+export const addList = createAsyncThunk("lists/add", async (list: any) => {
+  const res = await axios.post(API_URL, list);
+  return res.data;
+});
 
 const listsSlice = createSlice({
-    name: 'lists',
-    initialState,
-    reducers: {
-        setLists(state, action: PayloadAction<ShoppingList[]>) {
-            state.lists = action.payload
-        },
-        addList(state, action: PayloadAction<ShoppingList>) {
-            state.lists.unshift(action.payload)
-        },
-        updateList(state, action: PayloadAction<ShoppingList>) {
-            state.lists = state.lists.map(l => (l.id === action.payload.id ? action.payload : l))
-        },
-        deleteList(state, action: PayloadAction<number>) {
-            state.lists = state.lists.filter(l => l.id !== action.payload)
-        },
-    },
-})
+  name: "lists",
 
-export const {setLists, addList, updateList, deleteList} = listsSlice.actions
-export default listsSlice.reducer
+  initialState: { items: [] },
+  reducers: {},
+  extraReducers: builder => {
+    
+    builder.addCase(fetchLists.fulfilled, (state, action) => {
+      state.items = action.payload;
+    });
+    builder.addCase(addList.fulfilled, (state, action) => {
+      state.items.push(action.payload);
+    });
+  }
+});
+
+export default listsSlice.reducer;

@@ -1,37 +1,26 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-type User = {
-    id?: number 
-    email?: string
-    name?: string
-    surname?: string 
-    cell?: string
-}
-interface UserState {
-    current?: User | null
-    token?: string | null
-}
-const initialState: UserState = {
-    current: null,
-    token: null,
-}
+const API_URL = "http://localhost:4000/users";
+
+export const registerUser = createAsyncThunk(
+  "user/register",
+  async (user: any) => {
+    const res = await axios.post(API_URL, user);
+    return res.data;
+  }
+);
+
 const userSlice = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {
-        loginSuccess(state, action: PayloadAction<{user: User; token: string}>) {
-            state.current = action.payload.user
-            state.token = action.payload.token
-        },  
-        logout(state) {
-            state.current = null
-            state.token= null 
-        },
-        updateProfile(state, action: PayloadAction<User>) {
-            state.current = { ...PayloadAction(state.current || {}), ...action.payload}
-        },
-    },
-})
+  name: "user",
+  initialState: { currentUser: null, users: [] },
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.users.push(action.payload);
+      state.currentUser = action.payload;
+    });
+  }
+});
 
-export const { loginSuccess, logout, updateProfile } = userSlice.actions
-export default userSlice.reducer
+export default userSlice.reducer;

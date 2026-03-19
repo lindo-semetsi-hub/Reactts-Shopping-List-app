@@ -2,16 +2,15 @@
   "name": "shopping-list-ts",
   "private": true,
   "version": "0.1.0",
-
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "axios": "^1.3.0",
+    "json-server": "^1.0.0-beta.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6",
-    "@reduxjs/toolkit": "^1.9.1",
     "react-redux": "^8.0.5",
-    "axios": "^1.3.0"
+    "react-router-dom": "^6"
   },
-
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,7 +18,7 @@
     "json-server": "json-server --watch db.json ---port 4000"
   },
   "devDependencies": {
-   "typescript": "^5.0.2",
+    "typescript": "^5.0.2",
     "vite": "^4.0.0"
   }
 }

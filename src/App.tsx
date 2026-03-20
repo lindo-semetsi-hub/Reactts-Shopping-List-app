@@ -7,6 +7,7 @@ import ProfilePage from "./pages/ProfilePage";
 
 const App: React.FC = () => {
   return (
+    
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />

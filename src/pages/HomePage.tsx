@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import {useNavigate } from 'react-router-dom';
+
 
 import { RootState } from "../store";
 import { addList, deleteList, updateList } from "../slices/listsSlice";
@@ -15,16 +15,16 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
           category?: string;
 }
 
-const navigate = useNavigate();
+//const navigate = useNavigate();
 
- useEffect(() => {
-  if (!currentUser) {
-    navigate("/");
-  }
- }, [currentUser,navigate]);
+ //useEffect(() => {
+ // if (!currentUser) {
+    //navigate("/");
+ // }
+ //}, [currentUser,navigate]);
   
 
- 
+
   const HomePage: React.FC = () => {
     const currentUser = useSelector((state: RootState) => state.user.currentUser);
     const lists = useSelector((state: RootState) => state.lists.items);

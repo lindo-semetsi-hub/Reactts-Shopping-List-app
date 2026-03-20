@@ -2,16 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
-import {useNavigate } from 'react-router-dom';
+//import {useNavigate } from 'react-router-dom';
 import {useEffect} from 'react'
 
-const naigate = useNavigate();
+//const naigate = useNavigate();
 
-useEffect(() => {
+//useEffect(() => {
   if (!currentUser) {
     navigate("/");
   }
- }, [currentUser,navigate]);
+ //}, [currentUser,navigate]);
 
 const ProfilePage: React.FC = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser);

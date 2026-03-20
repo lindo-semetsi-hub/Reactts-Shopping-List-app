@@ -15,6 +15,16 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
           category?: string;
 }
 
+const navigate = useNavigate();
+
+ useEffect(() => {
+  if (!currentUser) {
+    navigate("/");
+  }
+ }, [currentUser,navigate]);
+  
+
+ 
   const HomePage: React.FC = () => {
     const currentUser = useSelector((state: RootState) => state.user.currentUser);
     const lists = useSelector((state: RootState) => state.lists.items);
@@ -56,14 +66,7 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
     const updatedName = prompt("Update name:", list.name) || list.name;
     dispatch(updateList({ ...list, name: updatedName }));
   };
- const navigate = useNavigate();
-
- useEffect(() => {
-  if (!currentUser) {
-    navigate("/");
-  }
- }, [currentUser,navigate]);
-
+ 
 
   // search --------------------------------------------------------------------------------------------
   const filteredLists = lists

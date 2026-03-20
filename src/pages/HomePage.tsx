@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import {useNavigate } from 'react-router-dom';
 
 import { RootState } from "../store";
 import { addList, deleteList, updateList } from "../slices/listsSlice";
@@ -27,7 +28,7 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
 
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
-  
+
   const [sort, setSort] = useState<"name" | "category" | "date">("date");
 
   const handleAddList = () => {
@@ -55,7 +56,13 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
     const updatedName = prompt("Update name:", list.name) || list.name;
     dispatch(updateList({ ...list, name: updatedName }));
   };
+ const navigate = useNavigate();
 
+ useEffect(() => {
+  if (!currentUser) {
+    navigate("/");
+  }
+ }, [currentUser,navigate]);
 
 
   // search --------------------------------------------------------------------------------------------

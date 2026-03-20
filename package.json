@@ -18,6 +18,7 @@
     "json-server": "json-server --watch db.json ---port 4000"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^3.1.0",
     "typescript": "^5.0.2",
     "vite": "^4.0.0"
   }

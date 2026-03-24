@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { fetchLists } from "../slices/listSlice";
 
 
 import { RootState } from "../store";
@@ -14,17 +14,28 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
         notes?: string;
           category?: string;
 }
+
+
   
   const HomePage: React.FC = () => {
     const currentUser = useSelector((state: RootState) => state.user.currentUser);
     const lists = useSelector((state: RootState) => state.lists.items);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+      dispatch(fetchLists());
+
+
+    }, [dispatch]);
+
+    
   const [name, setName] = useState("");
 
   const [quantity, setQuantity] = useState<number>(1);
  // const [notes, setNotes] = useState("");
 
+
+ 
 
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");

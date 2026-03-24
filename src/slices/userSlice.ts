@@ -16,9 +16,12 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }: { email: string; password: string }) => {
-    const res = await axios.get(`${API_URL}?email=${email}&password=${password}`);
-    if (res.data.length === 0) throw new Error("Invalid credentials");
-    return res.data[0];
+    const res = await fetch(`https://localhost:4000/uers?email=${email}&password=${password}`);
+    const data = await res.json();
+
+    if (data.length === 0) 
+    throw new Error("Invalid credentials");
+    return data[0];
   }
 );
 

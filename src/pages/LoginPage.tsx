@@ -11,10 +11,11 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
-      await dispatch(loginUser({ email, password }));
+      await dispatch(loginUser({ email, password })).unwrap();
       navigate("/home");
-    } catch {
+    } catch (err) {
       alert("Invalid credentials");
     }
   };
@@ -26,7 +27,7 @@ const LoginPage: React.FC = () => {
         <input placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} style={{ display:"block", marginBottom:"0.5rem", padding:"0.4rem", width:"100%" }} />
         <input placeholder="Password" type="password" value={password} onChange={e=>setPassword(e.target.value)} style={{ display:"block", marginBottom:"0.5rem", padding:"0.4rem", width:"100%" }} />
         <button type="submit" style={{ backgroundColor:"#006400", color:"white", padding:"0.5rem 1rem", border:"none", cursor:"pointer", width:"100%", marginTop:"0.5rem" }}>Login</button>
-      </form>
+      </form> 
     </div>
   );
 };

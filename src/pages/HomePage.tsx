@@ -23,7 +23,7 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
   const [name, setName] = useState("");
 
   const [quantity, setQuantity] = useState<number>(1);
-  const [notes, setNotes] = useState("");
+ // const [notes, setNotes] = useState("");
 
 
   const [category, setCategory] = useState("");
@@ -37,7 +37,7 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
       id: Date.now(),
       name,
       quantity,
-      notes,
+     // notes,
       category,
     };
     dispatch(addList(newList));
@@ -80,7 +80,9 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
         <h2 style={{ color:"#006400" }}>Add New Shopping List</h2>
         <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} style={{ marginRight:"0.5rem", padding:"0.4rem" }} />
         <input placeholder="Quantity" type="number" value={quantity} onChange={e => setQuantity(Number(e.target.value))} style={{ marginRight:"0.5rem", padding:"0.4rem", width:"60px" }} />
-        <input placeholder="Notes" value={notes} onChange={e => setNotes(e.target.value)} style={{ marginRight:"0.5rem", padding:"0.4rem" }} />
+
+
+
         <input placeholder="Category" value={category} onChange={e => setCategory(e.target.value)} style={{ marginRight:"0.5rem", padding:"0.4rem" }} />
         <button onClick={handleAddList} style={{ backgroundColor:"#006400", color:"white", border:"none", padding:"0.5rem 1rem", cursor:"pointer" }}>Add</button>
       </div>

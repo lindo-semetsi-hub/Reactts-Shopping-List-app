@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLists } from "../slices/listSlice";
+import { fetchLists } from "../slices/listsSlice";
 
 
 import { RootState } from "../store";
@@ -28,7 +28,7 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
 
     }, [dispatch]);
 
-    
+
   const [name, setName] = useState("");
 
   const [quantity, setQuantity] = useState<number>(1);

@@ -7,8 +7,14 @@ const API_URL = "http://localhost:4000/users";
 export const registerUser = createAsyncThunk(
   "user/register",
   async (userData: any) => {
-    const res = await axios.post(API_URL, userData);
-    return res.data;
+    const res = await axios.post(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    return await res.json();
   }
 );
 
@@ -17,10 +23,13 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }: { email: string; password: string }) => {
     const res = await fetch(`https://localhost:4000/uers?email=${email}&password=${password}`);
+
+    
     const data = await res.json();
 
     if (data.length === 0) 
     throw new Error("Invalid credentials");
+  
     return data[0];
   }
 );

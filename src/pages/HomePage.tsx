@@ -14,17 +14,7 @@ import { addList, deleteList, updateList } from "../slices/listsSlice";
         notes?: string;
           category?: string;
 }
-
-//const navigate = useNavigate();
-
- //useEffect(() => {
- // if (!currentUser) {
-    //navigate("/");
- // }
- //}, [currentUser,navigate]);
   
-
-
   const HomePage: React.FC = () => {
     const currentUser = useSelector((state: RootState) => state.user.currentUser);
     const lists = useSelector((state: RootState) => state.lists.items);

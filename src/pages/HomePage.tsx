@@ -1,56 +1,41 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  addList } from "../slices/listsSlice";
+
+import { addList } from "../slices/listsSlice";
+
 import { RootState } from "../store";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
+
   const navigate = useNavigate();
 
   const lists = useSelector((state: RootState) => state.lists.items);
   const currentUser = useSelector((state: RootState) => state.user.currentUser);
 
   const [name, setName] = useState("");
-
-
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
 
-  
-  useEffect(() => {
-    dispatch(fetchLists());
-  }, [dispatch]);
-
- // for adding item
   const handleAdd = () => {
     if (!name || !quantity || !category) {
-      alert("Please fill in all fields");
+      alert("Please fill all the fields");
       return;
     }
 
-    const newItem = {
-      name,
-      quantity,
-      category,
-    };
+    dispatch(addList({ name, quantity, category }));
 
-    dispatch(addList(newItem));
-
-  
-
-
-    //  clear inputs
     setName("");
     setQuantity("");
     setCategory("");
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+    <div style={{ padding: "20px" }}>
       <h1 style={{ color: "green" }}>
-        Welcome to ReaReka {currentUser ? currentUser.name : "Guest"} 👋
+        Welcome {currentUser ? currentUser.name : "Guest"}
       </h1>
 
       <button onClick={() => navigate("/profile")}>
@@ -66,29 +51,29 @@ const HomePage = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <br />
+      <br /><br />
 
       <input
         placeholder="Quantity"
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
       />
-      <br />
+      <br /><br />
 
       <input
         placeholder="Category"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       />
-      <br />
+      <br /><br />
 
-      <button onClick={handleAdd} style={{ backgroundColor: "green", color: "white" }}>
+      <button onClick={handleAdd} style={{ background: "green", color: "white" }}>
         Add Item
       </button>
 
       <hr />
 
-      <h2>Your Shopping List</h2>
+      <h2>Your Items</h2>
 
       {lists.length === 0 ? (
         <p>No items yet</p>
@@ -96,7 +81,7 @@ const HomePage = () => {
         <ul>
           {lists.map((item: any) => (
             <li key={item.id}>
-              <strong>{item.name}</strong> | Qty: {item.quantity} | Category: {item.category}
+              {item.name} | {item.quantity} | {item.category}
             </li>
           ))}
         </ul>
@@ -104,5 +89,7 @@ const HomePage = () => {
     </div>
   );
 };
+
+
 
 export default HomePage;

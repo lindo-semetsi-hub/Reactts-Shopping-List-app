@@ -17,6 +17,9 @@ const HomePage = () => {
 
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
+
+  const [search, setSearch ] = useState("");
+
   const [category, setCategory] = useState("");
 
   const handleAdd = () => {
@@ -31,6 +34,10 @@ const HomePage = () => {
     setQuantity("");
     setCategory("");
   };
+
+  const filteredLists = lists.filter((iten: any) =>
+  item.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div style={{ padding: "20px" }}>

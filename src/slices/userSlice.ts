@@ -43,6 +43,21 @@ const userSlice = createSlice({
     logout: (state) => {
       state.currentUser = null;
     },
+
+updateUser: ( state, action) => {
+    const updatedUser = action.payload;
+
+    state.currentUser = updatedUser;
+
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    const updatedUsers = users.map((u: any ) =>
+    u.email === updatedUser.email ? updatedUser : u
+    );
+
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+  },
+
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -52,7 +67,13 @@ const userSlice = createSlice({
       state.currentUser = action.payload;
     });
   },
+
+
+  
+
+
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, updateUser} = userSlice.actions;
+
 export default userSlice.reducer;

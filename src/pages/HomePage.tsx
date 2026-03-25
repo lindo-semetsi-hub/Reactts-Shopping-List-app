@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLists, addList } from "../slices/listsSlice";
+import {  addList } from "../slices/listsSlice";
 import { RootState } from "../store";
 import { useNavigate } from "react-router-dom";
 

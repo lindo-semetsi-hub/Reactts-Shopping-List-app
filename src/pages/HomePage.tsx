@@ -80,7 +80,6 @@ const HomePage = () => {
 
       <hr />
 
-
 <h2>Search</h2>
 
 <input 
@@ -88,6 +87,7 @@ placeholder="Search by name..."
 value={search}
 onChange={(e) => setSearch(e.target.value)}
 />
+<br /><br />
   
 
     <h2>Your Items</h2>

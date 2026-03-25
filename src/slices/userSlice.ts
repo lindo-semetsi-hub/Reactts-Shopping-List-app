@@ -1,16 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
-const API_URL = "http://localhost:4000/users";
 
-// ✅ REGISTER USER
+
+
 export const registerUser = createAsyncThunk(
   "user/register",
   async (userData: any) => {
-    const res = await axios.post(API_URL, userData);
-    return res.data;
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    users.push(userData);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    return userData;
   }
 );
+
 
 
 
@@ -18,16 +22,17 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }: { email: string; password: string }) => {
-    const res = await axios.get(
-      
-      `${API_URL}?email=${email}&password=${password}`
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    const foundUser = users.find(
+      (u: any) => u.email === email && u.password === password
     );
 
-    if (res.data.length === 0) {
+    if (!foundUser) {
       throw new Error("Invalid credentials");
     }
 
-    return res.data[0];
+    return foundUser;
   }
 );
 
@@ -50,5 +55,4 @@ const userSlice = createSlice({
 });
 
 export const { logout } = userSlice.actions;
-
 export default userSlice.reducer;

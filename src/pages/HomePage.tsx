@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { addList } from "../slices/listsSlice";
-
 import { RootState } from "../store";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-
-
   const navigate = useNavigate();
 
   const lists = useSelector((state: RootState) => state.lists.items);
@@ -18,13 +14,13 @@ const HomePage = () => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
 
-  const [search, setSearch ] = useState("");
 
   const [category, setCategory] = useState("");
+  const [search, setSearch] = useState("");
 
   const handleAdd = () => {
     if (!name || !quantity || !category) {
-      alert("Please fill all the fields");
+      alert("Fill all fields");
       return;
     }
 
@@ -35,14 +31,19 @@ const HomePage = () => {
     setCategory("");
   };
 
-  const filteredLists = lists.filter((iten: any) =>
-  item.name.toLowerCase().includes(search.toLowerCase())
+  
+
+
+
+  //based on search
+  const filteredLists = lists.filter((item: any) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <h1 style={{ color: "green" }}>
-        Welcome {currentUser ? currentUser.name : "Guest"}
+        Welcome to ReaReka {currentUser ? currentUser.name : "Guest"} 👋
       </h1>
 
       <button onClick={() => navigate("/profile")}>
@@ -74,7 +75,7 @@ const HomePage = () => {
       />
       <br /><br />
 
-      <button onClick={handleAdd} style={{ background: "green", color: "white" }}>
+      <button style={{ background: "green", color: "white" }} onClick={handleAdd}>
         Add Item
       </button>
 
@@ -82,15 +83,25 @@ const HomePage = () => {
 
 
 
-    <h2>Your Items</h2>
+  <h2>Search</h2>
 
-      {lists.length === 0 ? (
-        <p>No items yet</p>
+      <input
+        placeholder="Search by name..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      <br /><br />
+
+      <h2>Your Items</h2>
+
+      {filteredLists.length === 0 ? (
+        <p>No matching items...</p>
       ) : (
         <ul>
-          {lists.map((item: any) => (
+          {filteredLists.map((item: any) => (
             <li key={item.id}>
-              {item.name} | {item.quantity} | {item.category}
+              <strong>{item.name}</strong> | Qty: {item.quantity} | Category: {item.category}
             </li>
           ))}
         </ul>
@@ -98,6 +109,7 @@ const HomePage = () => {
     </div>
   );
 };
+
 
 
 

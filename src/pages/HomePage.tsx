@@ -80,13 +80,23 @@ const HomePage = () => {
 
       <hr />
 
-      <h2>Your Items</h2>
+
+<h2>Search</h2>
+
+<input 
+placeholder="Search by name..."
+value={search}
+onChange={(e) => setSearch(e.target.value)}
+/>
+  
+
+    <h2>Your Items</h2>
 
       {lists.length === 0 ? (
         <p>No items yet</p>
       ) : (
         <ul>
-          {lists.map((item: any) => (
+          {filteredLists.map((item: any) => (
             <li key={item.id}>
               {item.name} | {item.quantity} | {item.category}
             </li>
